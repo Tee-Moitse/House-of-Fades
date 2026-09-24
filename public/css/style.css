@@ -1058,8 +1058,167 @@ img {
 
 }
 
+/* =========================================================================== */
+
+/* SERVICES PAGE */
+
+.services-hero {
+    background:
+        linear-gradient(
+            rgba(13, 13, 13, 0.55),
+            rgba(13, 13, 13, 0.95)
+        ),
+        url("../images/services-hero.jpg");
+
+    background-size: cover;
+    background-position: center;
+}
 
 
+.services-list {
+    padding: 120px 10%;
+    background: var(--cream);
+    color: var(--black);
+}
+
+
+.service-list-heading {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    margin-bottom: 60px;
+}
+
+
+.service-list-heading h2 {
+    font-family: var(--heading-font);
+    text-transform: uppercase;
+    font-size: clamp(50px, 5vw, 75px);
+    line-height: .95;
+}
+
+
+.service-list-heading h2 span {
+    color: var(--gold);
+}
+
+
+.service-list-heading p {
+    max-width: 450px;
+    color: #555;
+}
+
+
+.full-service-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    background: #c9c4b9;
+}
+
+.full-service-card {
+    background: var(--cream);
+    padding: 40px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    transition: .3s;
+}
+
+
+.full-service-card:hover {
+    background: var(--black);
+    color: var(--cream);
+}
+
+
+.full-service-card.featured {
+    background: var(--black);
+    color: var(--cream);
+}
+
+.service-card-top {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.service-card-top span {
+    color: var(--gold);
+    font-size: 12px;
+}
+
+
+.service-card-top strong {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #777;
+}
+
+
+.full-service-card h3 {
+    font-family: var(--heading-font);
+    text-transform: uppercase;
+    font-size: 40px;
+    margin-top: 55px;
+}
+
+
+.full-service-card p {
+    max-width: 450px;
+    color: #666;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+
+.full-service-card.featured p {
+    color: var(--grey);
+}
+
+
+.full-service-bottom {
+    margin-top: auto;
+    padding-top: 25px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #ccc;
+}
+
+
+.full-service-card.featured .full-service-bottom {
+    border-color: #333;
+}
+
+
+.full-service-bottom span {
+    font-size: 9px;
+    letter-spacing: 2px;
+}
+
+
+.full-service-bottom strong {
+    color: var(--gold);
+    font-size: 18px;
+}
+
+
+@media (max-width: 700px) {
+
+    .service-list-heading {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .full-service-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .full-service-card h3 {
+        font-size: 34px;
+    }
+
+}
 
 
 
