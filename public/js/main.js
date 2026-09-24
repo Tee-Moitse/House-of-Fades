@@ -314,5 +314,279 @@ if (bookingForm) {
     timeSelect.addEventListener("change", updateSummary);
 
 
+/* -----------------------------------------
+       CREATE GOOGLE CALENDAR EVENT
+    ----------------------------------------- */
+
+    function createGoogleCalendarLink(booking) {
+
+        const startDate =
+            new Date(
+                `${booking.date}T${booking.time}:00+02:00`
+            );
+
+        const endDate =
+            new Date(
+                startDate.getTime() +
+                booking.duration * 60 * 1000
+            );
+
+        const googleDate = date =>
+            date.toISOString()
+                .replace(/[-:]/g, "")
+                .replace(/\.\d{3}/, "");
+
+        const start =
+            googleDate(startDate);
+
+        const end =
+            googleDate(endDate);
+
+        const title =
+            `House of Fades — ${booking.service}`;
+
+        const details =
+            `Barber: ${booking.barber}\n` +
+            `Customer: ${booking.name}\n` +
+            `Phone: ${booking.phone}\n` +
+            `Email: ${booking.email}\n\n` +
+            `House of Fades — Stay Sharp. Stay Fresh.`;
+
+        const location =
+            "24 Long Street, City Centre, South Africa";
+
+        return (
+            "https://calendar.google.com/calendar/render" +
+            "?action=TEMPLATE" +
+            `&text=${encodeURIComponent(title)}` +
+            `&dates=${start}/${end}` +
+            `&details=${encodeURIComponent(details)}` +
+            `&location=${encodeURIComponent(location)}`
+        );
+    }
+
+
+    /* -----------------------------------------
+       CREATE APPLE / ICS CALENDAR FILE
+    ----------------------------------------- */
+
+    function createICSFile(booking) {
+
+        const startDate =
+            new Date(
+                `${booking.date}T${booking.time}:00+02:00`
+            );
+
+        const endDate =
+            new Date(
+                startDate.getTime() +
+                booking.duration * 60 * 1000
+            );
+
+        const formatICSDate = date =>
+            date.toISOString()
+                .replace(/[-:]/g, "")
+                .replace(/\.\d{3}/, "");
+
+        const start =
+            formatICSDate(startDate);
+
+        const end =
+            formatICSDate(endDate);
+
+        const now =
+            formatICSDate(new Date());
+
+        const uid =
+            `house-of-fades-${Date.now()}@houseoffades.co.za`;
+
+        const description =
+            `Barber: ${booking.barber}\\n` +
+            `Customer: ${booking.name}\\n` +
+            `Phone: ${booking.phone}\\n` +
+            `Email: ${booking.email}`;
+
+        const location =
+            "24 Long Street, City Centre, South Africa";
+
+        const ics =
+`BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//House of Fades//Booking//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:${uid}
+DTSTAMP:${now}
+DTSTART:${start}
+DTEND:${end}
+SUMMARY:House of Fades — ${booking.service}
+DESCRIPTION:${description}
+LOCATION:${location}
+END:VEVENT
+END:VCALENDAR`;
+
+        const blob =
+            new Blob([ics], {
+                type: "text/calendar;charset=utf-8"
+            });
+
+        const url =
+            URL.createObjectURL(blob);
+
+        const link =
+            document.createElement("a");
+
+        link.href = url;
+        link.download =
+            "house-of-fades-appointment.ics";
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        document.body.removeChild(link);
+
+        URL.revokeObjectURL(url);
+    }
+
+
+    /* -----------------------------------------
+       FORM SUBMISSION
+    ----------------------------------------- */
+
+    bookingForm.addEventListener("submit", event => {
+
+        event.preventDefault();
+
+        const selectedOption =
+            serviceSelect.options[
+                serviceSelect.selectedIndex
+            ];
+
+        const booking = {
+
+            service: serviceSelect.value,
+
+            barber: barberSelect.value,
+
+            date: dateInput.value,
+
+            time: timeSelect.value,
+
+            name:
+                document.getElementById("customerName").value.trim(),
+
+            phone:
+                document.getElementById("customerPhone").value.trim(),
+
+            email:
+                document.getElementById("customerEmail").value.trim(),
+
+            notes:
+                document.getElementById("notes").value.trim(),
+
+            duration:
+                parseInt(selectedOption.dataset.duration, 10),
+
+            price:
+                selectedOption.dataset.price
+
+        };
+
+
+        /* Store latest booking locally */
+
+        localStorage.setItem(
+            "houseOfFadesBooking",
+            JSON.stringify(booking)
+        );
+
+
+        /* Confirmation details */
+
+        document.getElementById("confirmService").textContent =
+            booking.service;
+
+        document.getElementById("confirmBarber").textContent =
+            booking.barber;
+
+        document.getElementById("confirmDateTime").textContent =
+            `${formatDate(booking.date)} at ${formatTime(booking.time)}`;
+
+        document.getElementById("confirmPrice").textContent =
+            `R${booking.price}`;
+
+
+        /* Google Calendar */
+
+        googleCalendar.href =
+            createGoogleCalendarLink(booking);
+
+
+        /* Apple / ICS */
+
+        appleCalendar.onclick = () => {
+            createICSFile(booking);
+        };
+
+
+        /* Open modal */
+
+        modal.classList.add("show");
+        modal.setAttribute("aria-hidden", "false");
+
+    });
+
+
+    /* -----------------------------------------
+       CLOSE MODAL
+    ----------------------------------------- */
+
+    function hideModal() {
+
+        modal.classList.remove("show");
+
+        modal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+    }
+
+    closeModal.addEventListener(
+        "click",
+        hideModal
+    );
+
+    modalDone.addEventListener(
+        "click",
+        hideModal
+    );
+
+
+    document.querySelector(".modal-overlay")
+        .addEventListener(
+            "click",
+            hideModal
+        );
+
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Escape" &&
+                modal.classList.contains("show")
+            ) {
+                hideModal();
+            }
+
+        }
+    );
+
+}
+
+
 
 
