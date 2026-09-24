@@ -760,6 +760,16 @@ img {
 
 }
 
+.hero {
+    display: grid !important;
+    grid-template-columns: 52% 48% !important;
+    min-height: 100vh !important;
+}
+
+.hero-content {
+    padding: 180px 10% 80px 10% !important;
+}
+
 
 
 
