@@ -860,7 +860,57 @@ img {
 }
 
 
+/* VALUES */
 
+.values-section {
+    padding: 120px 10%;
+    background: var(--black);
+}
+
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+
+.value-card {
+    padding: 40px;
+    min-height: 280px;
+
+    background: var(--charcoal);
+    border: 1px solid #292929;
+
+    transition: 0.3s;
+}
+
+
+.value-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-5px);
+}
+
+
+.value-card > span {
+    color: var(--gold);
+    font-size: 12px;
+}
+
+
+.value-card h3 {
+    font-family: var(--heading-font);
+    font-size: 36px;
+    text-transform: uppercase;
+    margin-top: 50px;
+}
+
+
+.value-card p {
+    color: var(--grey);
+    font-size: 14px;
+    margin-top: 10px;
+}
 
 
 
