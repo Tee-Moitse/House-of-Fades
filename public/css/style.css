@@ -819,8 +819,45 @@ img {
 }
 
 
+/* STORY */
+
+.about-story {
+    padding: 120px 10%;
+    background: var(--cream);
+    color: var(--black);
+}
 
 
+.about-story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+}
+
+
+.about-story-heading h2 {
+    font-family: var(--heading-font);
+    font-size: clamp(50px, 5vw, 75px);
+    line-height: 0.95;
+    text-transform: uppercase;
+}
+
+
+.about-story-heading h2 span {
+    color: var(--gold);
+}
+
+
+.about-story-text {
+    max-width: 550px;
+}
+
+
+.about-story-text p {
+    color: #555;
+    margin-bottom: 25px;
+    font-size: 16px;
+}
 
 
 
