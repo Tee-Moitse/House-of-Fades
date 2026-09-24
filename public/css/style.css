@@ -913,6 +913,112 @@ img {
 }
 
 
+/* BARBERS */
+
+.barbers-section {
+    padding: 120px 10%;
+    background: var(--charcoal);
+}
+
+
+.section-description {
+    max-width: 350px;
+    color: var(--grey);
+    font-size: 14px;
+}
+
+
+.barber-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+
+.barber-card {
+    background: var(--black);
+}
+
+
+.barber-image {
+    height: 420px;
+
+    background-size: cover;
+    background-position: center;
+}
+
+
+.barber-one {
+    background-image:
+        linear-gradient(
+            rgba(0, 0, 0, 0.05),
+            rgba(0, 0, 0, 0.15)
+        ),
+        url("../images/barber-1.jpg");
+}
+
+
+.barber-two {
+    background-image:
+        linear-gradient(
+            rgba(0, 0, 0, 0.05),
+            rgba(0, 0, 0, 0.15)
+        ),
+        url("../images/barber-2.jpg");
+}
+
+
+.barber-three {
+    background-image:
+        linear-gradient(
+            rgba(0, 0, 0, 0.05),
+            rgba(0, 0, 0, 0.15)
+        ),
+        url("../images/barber-3.jpg");
+}
+
+
+.barber-info {
+    padding: 30px;
+}
+
+
+.barber-info > span {
+    color: var(--gold);
+    font-size: 9px;
+    letter-spacing: 2px;
+}
+
+
+.barber-info h3 {
+    font-family: var(--heading-font);
+    text-transform: uppercase;
+    font-size: 32px;
+    margin-top: 8px;
+}
+
+
+.barber-info p {
+    color: var(--grey);
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
