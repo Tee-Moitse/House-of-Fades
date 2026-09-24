@@ -771,6 +771,52 @@ img {
 }
 
 
+/* ABOUT PAGE */
+
+.page-hero {
+    min-height: 70vh;
+
+    display: flex;
+    align-items: flex-end;
+
+    padding: 160px 10% 100px;
+
+    background:
+        linear-gradient(
+            rgba(13, 13, 13, 0.5),
+            rgba(13, 13, 13, 0.95)
+        ),
+        url("../images/about-hero.jpg");
+
+    background-size: cover;
+    background-position: center;
+}
+
+
+.page-hero-content {
+    max-width: 750px;
+}
+
+
+.page-hero h1 {
+    font-family: var(--heading-font);
+    font-size: clamp(65px, 8vw, 115px);
+    line-height: 0.9;
+    text-transform: uppercase;
+}
+
+
+.page-hero h1 span {
+    color: var(--gold);
+}
+
+
+.page-hero p:not(.eyebrow) {
+    max-width: 500px;
+    color: var(--grey);
+    margin-top: 30px;
+    font-size: 17px;
+}
 
 
 
