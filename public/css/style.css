@@ -1005,8 +1005,58 @@ img {
 }
 
 
+/* ABOUT RESPONSIVENESS */
+
+@media (max-width: 900px) {
+
+    .about-story-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
 
 
+    .values-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .barber-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .barber-image {
+        height: 500px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .page-hero {
+        min-height: 65vh;
+        padding: 130px 7% 70px;
+    }
+
+
+    .page-hero h1 {
+        font-size: 60px;
+    }
+
+
+    .about-story,
+    .values-section,
+    .barbers-section {
+        padding: 80px 7%;
+    }
+
+
+    .barber-image {
+        height: 400px;
+    }
+
+}
 
 
 
