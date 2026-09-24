@@ -3,9 +3,429 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <title>Book an Appointment | House of Fades</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="navbar">
+
+            <a href="index.html" class="logo">
+                <span class="logo-mark">HF</span>
+                <span>
+                    <strong>HOUSE OF FADES</strong>
+                    <small>STAY SHARP. STAY FRESH.</small>
+                </span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="about.html">About</a>
+                <a href="booking.html" class="active">Contact</a>
+            </nav>
+
+            <a href="booking.html" class="nav-book-btn">Book Now</a>
+
+            <button class="menu-toggle" aria-label="Open navigation">
+                ☰
+            </button>
+
+        </div>
+    </header>
+
+
+    <!-- PAGE HERO -->
+    <section class="page-hero booking-hero">
+        <div class="page-hero-content">
+            <span class="eyebrow">BOOK YOUR CHAIR</span>
+            <h1>Reserve<br><span>your spot.</span></h1>
+            <p>
+                Choose your service, barber, date and time.
+                We'll have the chair ready for you.
+            </p>
+        </div>
+    </section>
+
+
+    <!-- BOOKING -->
+    <section class="booking-section">
+
+        <div class="booking-intro">
+            <span class="eyebrow">APPOINTMENTS</span>
+            <h2>Let's get<br><span>you fresh.</span></h2>
+            <p>
+                Appointments are available Monday through Saturday.
+                Select your preferred service and barber below.
+            </p>
+
+            <div class="booking-contact">
+                <div>
+                    <span>VISIT US</span>
+                    <p>24 Long Street<br>City Centre<br>South Africa</p>
+                </div>
+
+                <div>
+                    <span>CONTACT</span>
+                    <p>
+                        <a href="tel:+27215550148">+27 21 555 0148</a><br>
+                        <a href="mailto:hello@houseoffades.co.za">
+                            hello@houseoffades.co.za
+                        </a>
+                    </p>
+                </div>
+
+                <div>
+                    <span>OPENING HOURS</span>
+                    <p>
+                        Mon–Fri: 09:00–18:00<br>
+                        Sat: 08:00–16:00<br>
+                        Sun: Closed
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="booking-form-wrapper">
+
+            <form id="bookingForm" class="booking-form">
+
+                <div class="form-section">
+                    <span class="form-number">01</span>
+
+                    <div class="form-section-content">
+                        <h3>Choose your service</h3>
+
+                        <label for="service">Service</label>
+
+                        <select id="service" name="service" required>
+                            <option value="">Select a service</option>
+
+                            <option value="Signature Fade"
+                                    data-duration="45"
+                                    data-price="180">
+                                Signature Fade — R180
+                            </option>
+
+                            <option value="Classic Cut"
+                                    data-duration="40"
+                                    data-price="160">
+                                Classic Cut — R160
+                            </option>
+
+                            <option value="Beard Sculpt"
+                                    data-duration="30"
+                                    data-price="120">
+                                Beard Sculpt — R120
+                            </option>
+
+                            <option value="The Full House"
+                                    data-duration="70"
+                                    data-price="280">
+                                The Full House — R280
+                            </option>
+
+                            <option value="Head Shave"
+                                    data-duration="25"
+                                    data-price="130">
+                                Head Shave — R130
+                            </option>
+
+                            <option value="Beard Trim"
+                                    data-duration="20"
+                                    data-price="90">
+                                Beard Trim — R90
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-section">
+                    <span class="form-number">02</span>
+
+                    <div class="form-section-content">
+                        <h3>Choose your barber</h3>
+
+                        <label for="barber">Barber</label>
+
+                        <select id="barber" name="barber" required>
+                            <option value="">Select a barber</option>
+                            <option value="Marcus Cole">Marcus Cole — Master Barber</option>
+                            <option value="Jayden Blake">Jayden Blake — Senior Barber</option>
+                            <option value="Malik Stone">Malik Stone — Barber</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-section">
+                    <span class="form-number">03</span>
+
+                    <div class="form-section-content">
+                        <h3>Pick your time</h3>
+
+                        <div class="form-row">
+
+                            <div>
+                                <label for="bookingDate">Date</label>
+                                <input
+                                    type="date"
+                                    id="bookingDate"
+                                    name="bookingDate"
+                                    required
+                                >
+                            </div>
+
+                            <div>
+                                <label for="bookingTime">Time</label>
+                                <select
+                                    id="bookingTime"
+                                    name="bookingTime"
+                                    required
+                                >
+                                    <option value="">
+                                        Select date first
+                                    </option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <p id="scheduleMessage" class="schedule-message"></p>
+                    </div>
+                </div>
+
+
+                <div class="form-section">
+                    <span class="form-number">04</span>
+
+                    <div class="form-section-content">
+                        <h3>Your details</h3>
+
+                        <div class="form-row">
+
+                            <div>
+                                <label for="customerName">Full name</label>
+                                <input
+                                    type="text"
+                                    id="customerName"
+                                    name="customerName"
+                                    placeholder="Your full name"
+                                    required
+                                >
+                            </div>
+
+                            <div>
+                                <label for="customerPhone">Phone number</label>
+                                <input
+                                    type="tel"
+                                    id="customerPhone"
+                                    name="customerPhone"
+                                    placeholder="+27..."
+                                    required
+                                >
+                            </div>
+
+                        </div>
+
+                        <label for="customerEmail">Email address</label>
+                        <input
+                            type="email"
+                            id="customerEmail"
+                            name="customerEmail"
+                            placeholder="you@example.com"
+                            required
+                        >
+
+                        <label for="notes">Anything we should know? <span>(optional)</span></label>
+                        <textarea
+                            id="notes"
+                            name="notes"
+                            rows="4"
+                            placeholder="Special requests or notes..."
+                        ></textarea>
+                    </div>
+                </div>
+
+
+                <!-- SUMMARY -->
+                <div class="booking-summary">
+
+                    <div>
+                        <span>YOUR APPOINTMENT</span>
+                        <h3 id="summaryService">Select a service</h3>
+                        <p id="summaryDetails">
+                            Your appointment details will appear here.
+                        </p>
+                    </div>
+
+                    <strong id="summaryPrice">R0</strong>
+
+                </div>
+
+
+                <button type="submit" class="booking-submit">
+                    Confirm Appointment →
+                </button>
+
+                <p class="booking-note">
+                    By confirming your appointment, you agree to our
+                    <a href="terms.html">Terms & Conditions</a>.
+                </p>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONFIRMATION MODAL -->
+    <div id="confirmationModal" class="modal" aria-hidden="true">
+
+        <div class="modal-overlay"></div>
+
+        <div class="modal-content">
+
+            <button
+                type="button"
+                id="closeModal"
+                class="modal-close"
+                aria-label="Close confirmation"
+            >
+                ×
+            </button>
+
+            <span class="eyebrow">BOOKING CONFIRMED</span>
+
+            <div class="confirmation-icon">✓</div>
+
+            <h2>You're<br><span>booked.</span></h2>
+
+            <p class="confirmation-message">
+                Your appointment has been confirmed. Add it to your calendar
+                so you don't miss your chair time.
+            </p>
+
+            <div class="confirmation-details">
+                <div>
+                    <span>SERVICE</span>
+                    <strong id="confirmService"></strong>
+                </div>
+
+                <div>
+                    <span>BARBER</span>
+                    <strong id="confirmBarber"></strong>
+                </div>
+
+                <div>
+                    <span>DATE & TIME</span>
+                    <strong id="confirmDateTime"></strong>
+                </div>
+
+                <div>
+                    <span>TOTAL</span>
+                    <strong id="confirmPrice"></strong>
+                </div>
+            </div>
+
+            <div class="calendar-actions">
+
+                <a
+                    id="googleCalendar"
+                    href="#"
+                    target="_blank"
+                    rel="noopener"
+                    class="calendar-button primary"
+                >
+                    Add to Google Calendar
+                </a>
+
+                <button
+                    type="button"
+                    id="appleCalendar"
+                    class="calendar-button secondary"
+                >
+                    Add to Apple / Other Calendar
+                </button>
+
+            </div>
+
+            <button
+                type="button"
+                id="modalDone"
+                class="modal-done"
+            >
+                Done
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+
+        <div class="footer-main">
+
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <span class="logo-mark">HF</span>
+                    <span>
+                        <strong>HOUSE OF FADES</strong>
+                        <small>STAY SHARP. STAY FRESH.</small>
+                    </span>
+                </a>
+
+                <p>
+                    Modern cuts. Classic craft.<br>
+                    Your style, our statement.
+                </p>
+            </div>
+
+            <div class="footer-column">
+                <span>EXPLORE</span>
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="about.html">About</a>
+                <a href="booking.html">Book Now</a>
+            </div>
+
+            <div class="footer-column">
+                <span>VISIT US</span>
+                <p>24 Long Street<br>City Centre<br>South Africa</p>
+            </div>
+
+            <div class="footer-column">
+                <span>HOURS</span>
+                <p>Mon–Fri: 09:00–18:00</p>
+                <p>Sat: 08:00–16:00</p>
+                <p>Sun: Closed</p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 House of Fades. All rights reserved.</p>
+            <a href="terms.html">Terms & Conditions</a>
+        </div>
+
+    </footer>
+
+
+    <script src="js/main.js"></script>
+
 </body>
 </html>
