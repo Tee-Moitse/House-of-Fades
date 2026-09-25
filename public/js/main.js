@@ -1,5 +1,10 @@
-/* =========================================
-   MOBILE NAVIGATION*/
+/* 
+   HOUSE OF FADES - MAIN JAVASCRIPT*/
+
+
+/* 
+   MOBILE NAVIGATION
+*/
 
 const menuToggle = document.querySelector(".menu-toggle");
 const navLinks = document.querySelector(".nav-links");
@@ -7,18 +12,25 @@ const navLinks = document.querySelector(".nav-links");
 if (menuToggle && navLinks) {
 
     menuToggle.addEventListener("click", () => {
+
         navLinks.classList.toggle("mobile-open");
 
         menuToggle.textContent =
-            navLinks.classList.contains("mobile-open") ? "×" : "☰";
+            navLinks.classList.contains("mobile-open")
+                ? "×"
+                : "☰";
+
     });
 
 }
 
 
-// BOOKING SYSTEM
+/* 
+   BOOKING SYSTEM
+ */
 
 const bookingForm = document.getElementById("bookingForm");
+
 
 if (bookingForm) {
 
@@ -27,22 +39,29 @@ if (bookingForm) {
     const dateInput = document.getElementById("bookingDate");
     const timeSelect = document.getElementById("bookingTime");
     const scheduleMessage = document.getElementById("scheduleMessage");
-
     const summaryService = document.getElementById("summaryService");
     const summaryDetails = document.getElementById("summaryDetails");
     const summaryPrice = document.getElementById("summaryPrice");
 
-    const modal = document.getElementById("confirmationModal");
-    const closeModal = document.getElementById("closeModal");
-    const modalDone = document.getElementById("modalDone");
+    const modal =
+        document.getElementById("confirmationModal");
 
-    const googleCalendar = document.getElementById("googleCalendar");
-    const appleCalendar = document.getElementById("appleCalendar");
+    const closeModal =
+        document.getElementById("closeModal");
 
-}
+    const modalDone =
+        document.getElementById("modalDone");
 
-/* -----------------------------------------
-       DATE SETUP */
+    const googleCalendar =
+        document.getElementById("googleCalendar");
+
+    const appleCalendar =
+        document.getElementById("appleCalendar");
+
+
+    /* =========================================
+       DATE
+    ========================================= */
 
     const today = new Date();
 
@@ -56,10 +75,12 @@ if (bookingForm) {
     dateInput.min = localToday;
 
 
-
-    //    SHOP HOURS
+    /* =========================================
+       SHOP HOURS
+    ========================================= */
 
     const shopHours = {
+
         weekday: {
             open: "09:00",
             close: "18:00"
@@ -69,16 +90,21 @@ if (bookingForm) {
             open: "08:00",
             close: "16:00"
         }
+
     };
 
 
-
-    //    GET SHOP HOURS FOR SELECTED DATE
+    /* =========================================
+       GET SHOP HOURS
+    ========================================= */
 
     function getShopHours(dateString) {
 
-        const date = new Date(dateString + "T12:00:00");
-        const day = date.getDay();
+        const date =
+            new Date(dateString + "T12:00:00");
+
+        const day =
+            date.getDay();
 
         // Sunday
         if (day === 0) {
@@ -95,116 +121,20 @@ if (bookingForm) {
     }
 
 
-    /* -----------------------------------------
-       GENERATE AVAILABLE TIMES
-    ----------------------------------------- */
-
-    function updateTimeOptions() {
-
-        const selectedDate = dateInput.value;
-        const selectedService = serviceSelect.options[
-            serviceSelect.selectedIndex
-        ];
-
-        timeSelect.innerHTML = "";
-
-        if (!selectedDate) {
-
-            timeSelect.innerHTML =
-                '<option value="">Select date first</option>';
-
-            return;
-        }
-
-        if (!selectedService || !selectedService.dataset.duration) {
-
-            timeSelect.innerHTML =
-                '<option value="">Select service first</option>';
-
-            return;
-        }
-
-        const hours = getShopHours(selectedDate);
-
-        if (!hours) {
-
-            timeSelect.innerHTML =
-                '<option value="">Shop is closed</option>';
-
-            scheduleMessage.textContent =
-                "We're closed on Sundays. Please choose another date.";
-
-            return;
-        }
-
-        const duration =
-            parseInt(selectedService.dataset.duration, 10);
-
-        const [openHour, openMinute] =
-            hours.open.split(":").map(Number);
-
-        const [closeHour, closeMinute] =
-            hours.close.split(":").map(Number);
-
-        const openingMinutes =
-            openHour * 60 + openMinute;
-
-        const closingMinutes =
-            closeHour * 60 + closeMinute;
-
-        let availableTimes = [];
-
-        for (
-            let minutes = openingMinutes;
-            minutes + duration <= closingMinutes;
-            minutes += 30
-        ) {
-
-            const hour = Math.floor(minutes / 60);
-            const minute = minutes % 60;
-
-            const time =
-                String(hour).padStart(2, "0") +
-                ":" +
-                String(minute).padStart(2, "0");
-
-            availableTimes.push(time);
-
-            const option = document.createElement("option");
-
-            option.value = time;
-            option.textContent = formatTime(time);
-
-            timeSelect.appendChild(option);
-        }
-
-        if (availableTimes.length > 0) {
-
-            scheduleMessage.textContent =
-                `Available times: ${formatTime(hours.open)} – ${formatTime(hours.close)}.`;
-
-        } else {
-
-            timeSelect.innerHTML =
-                '<option value="">No times available</option>';
-
-        }
-
-        updateSummary();
-    }
-
-
-    /* -----------------------------------------
-       FORMAT TIME */
+    /* =========================================
+       FORMAT TIME
+    ========================================= */
 
     function formatTime(time) {
 
         const [hour, minute] =
             time.split(":").map(Number);
 
-        const suffix = hour >= 12 ? "PM" : "AM";
+        const suffix =
+            hour >= 12 ? "PM" : "AM";
 
-        let displayHour = hour % 12;
+        let displayHour =
+            hour % 12;
 
         if (displayHour === 0) {
             displayHour = 12;
@@ -214,8 +144,9 @@ if (bookingForm) {
     }
 
 
-    /* -----------------------------------------
-       FORMAT DATE */
+    /* =========================================
+       FORMAT DATE
+    ========================================= */
 
     function formatDate(dateString) {
 
@@ -235,8 +166,149 @@ if (bookingForm) {
     }
 
 
-    /* -----------------------------------------
-       UPDATE APPOINTMENT SUMMARY */
+    /* =========================================
+       GENERATE TIMES
+    ========================================= */
+
+    function updateTimeOptions() {
+
+        const selectedDate =
+            dateInput.value;
+
+        const selectedService =
+            serviceSelect.value;
+
+        timeSelect.innerHTML = "";
+
+        if (!selectedService && !selectedDate) {
+
+            timeSelect.innerHTML =
+                '<option value="">Select a service and date</option>';
+
+            scheduleMessage.textContent = "";
+
+            return;
+        }
+
+        if (!selectedService) {
+
+            timeSelect.innerHTML =
+                '<option value="">Select a service first</option>';
+
+            scheduleMessage.textContent = "";
+
+            return;
+        }
+
+        if (!selectedDate) {
+
+            timeSelect.innerHTML =
+                '<option value="">Select a date first</option>';
+
+            scheduleMessage.textContent = "";
+
+            return;
+        }
+
+
+        const selectedOption =
+            serviceSelect.options[
+                serviceSelect.selectedIndex
+            ];
+
+        const duration =
+            parseInt(
+                selectedOption.dataset.duration,
+                10
+            );
+
+
+        const hours =
+            getShopHours(selectedDate);
+
+
+        if (!hours) {
+
+            timeSelect.innerHTML =
+                '<option value="">Shop is closed</option>';
+
+            scheduleMessage.textContent =
+                "We're closed on Sundays. Please choose another date.";
+
+            return;
+        }
+
+
+        const [openHour, openMinute] =
+            hours.open.split(":").map(Number);
+
+        const [closeHour, closeMinute] =
+            hours.close.split(":").map(Number);
+
+
+        const openingMinutes =
+            openHour * 60 + openMinute;
+
+        const closingMinutes =
+            closeHour * 60 + closeMinute;
+
+
+        let timesAdded = 0;
+
+
+        for (
+            let minutes = openingMinutes;
+            minutes + duration <= closingMinutes;
+            minutes += 30
+        ) {
+
+            const hour =
+                Math.floor(minutes / 60);
+
+            const minute =
+                minutes % 60;
+
+            const time =
+                String(hour).padStart(2, "0") +
+                ":" +
+                String(minute).padStart(2, "0");
+
+
+            const option =
+                document.createElement("option");
+
+            option.value = time;
+
+            option.textContent =
+                formatTime(time);
+
+            timeSelect.appendChild(option);
+
+            timesAdded++;
+        }
+
+
+        if (timesAdded > 0) {
+
+            scheduleMessage.textContent =
+                `Available times: ${formatTime(hours.open)} – ${formatTime(hours.close)}.`;
+
+        } else {
+
+            timeSelect.innerHTML =
+                '<option value="">No times available</option>';
+
+            scheduleMessage.textContent =
+                "No appointment times are available.";
+        }
+
+        updateSummary();
+    }
+
+
+    /* =========================================
+       UPDATE SUMMARY
+    ========================================= */
 
     function updateSummary() {
 
@@ -252,18 +324,27 @@ if (bookingForm) {
         const time =
             timeSelect.value;
 
+
         const selectedOption =
             serviceSelect.options[
                 serviceSelect.selectedIndex
             ];
 
+
         const price =
             selectedOption?.dataset.price || 0;
 
+
         if (service) {
-            summaryService.textContent = service;
-            summaryPrice.textContent = `R${price}`;
+
+            summaryService.textContent =
+                service;
+
+            summaryPrice.textContent =
+                `R${price}`;
+
         } else {
+
             summaryService.textContent =
                 "Select a service";
 
@@ -271,7 +352,9 @@ if (bookingForm) {
                 "R0";
         }
 
+
         const details = [];
+
 
         if (barber) {
             details.push(barber);
@@ -285,38 +368,51 @@ if (bookingForm) {
             details.push(formatTime(time));
         }
 
+
         summaryDetails.textContent =
-            details.length > 0
+            details.length
                 ? details.join(" • ")
                 : "Your appointment details will appear here.";
     }
 
 
-    /* -----------------------------------------
-       EVENTS */
+    /* =========================================
+       FORM EVENTS
+    ========================================= */
 
-    serviceSelect.addEventListener("change", () => {
-
-        updateTimeOptions();
-        updateSummary();
-
-    });
-
-    barberSelect.addEventListener("change", updateSummary);
-
-    dateInput.addEventListener("change", () => {
-
-        updateTimeOptions();
-        updateSummary();
-
-    });
-
-    timeSelect.addEventListener("change", updateSummary);
+    serviceSelect.addEventListener(
+        "change",
+        () => {
+            updateTimeOptions();
+            updateSummary();
+        }
+    );
 
 
-/* -----------------------------------------
-       CREATE GOOGLE CALENDAR EVENT
-    ----------------------------------------- */
+    barberSelect.addEventListener(
+        "change",
+        updateSummary
+    );
+
+
+    dateInput.addEventListener(
+        "change",
+        () => {
+            updateTimeOptions();
+            updateSummary();
+        }
+    );
+
+
+    timeSelect.addEventListener(
+        "change",
+        updateSummary
+    );
+
+
+    /* =========================================
+       GOOGLE CALENDAR
+    ========================================= */
 
     function createGoogleCalendarLink(booking) {
 
@@ -325,16 +421,20 @@ if (bookingForm) {
                 `${booking.date}T${booking.time}:00+02:00`
             );
 
+
         const endDate =
             new Date(
                 startDate.getTime() +
                 booking.duration * 60 * 1000
             );
 
-        const googleDate = date =>
-            date.toISOString()
-                .replace(/[-:]/g, "")
-                .replace(/\.\d{3}/, "");
+
+        const googleDate =
+            date =>
+                date.toISOString()
+                    .replace(/[-:]/g, "")
+                    .replace(/\.\d{3}/, "");
+
 
         const start =
             googleDate(startDate);
@@ -342,18 +442,21 @@ if (bookingForm) {
         const end =
             googleDate(endDate);
 
+
         const title =
             `House of Fades — ${booking.service}`;
+
 
         const details =
             `Barber: ${booking.barber}\n` +
             `Customer: ${booking.name}\n` +
             `Phone: ${booking.phone}\n` +
-            `Email: ${booking.email}\n\n` +
-            `House of Fades — Stay Sharp. Stay Fresh.`;
+            `Email: ${booking.email}`;
+
 
         const location =
             "24 Long Street, City Centre, South Africa";
+
 
         return (
             "https://calendar.google.com/calendar/render" +
@@ -366,9 +469,9 @@ if (bookingForm) {
     }
 
 
-    /* -----------------------------------------
-       CREATE APPLE / ICS CALENDAR FILE
-    ----------------------------------------- */
+    /* =========================================
+       APPLE / OTHER CALENDAR
+    ========================================= */
 
     function createICSFile(booking) {
 
@@ -377,16 +480,20 @@ if (bookingForm) {
                 `${booking.date}T${booking.time}:00+02:00`
             );
 
+
         const endDate =
             new Date(
                 startDate.getTime() +
                 booking.duration * 60 * 1000
             );
 
-        const formatICSDate = date =>
-            date.toISOString()
-                .replace(/[-:]/g, "")
-                .replace(/\.\d{3}/, "");
+
+        const formatICSDate =
+            date =>
+                date.toISOString()
+                    .replace(/[-:]/g, "")
+                    .replace(/\.\d{3}/, "");
+
 
         const start =
             formatICSDate(startDate);
@@ -397,17 +504,14 @@ if (bookingForm) {
         const now =
             formatICSDate(new Date());
 
+
         const uid =
             `house-of-fades-${Date.now()}@houseoffades.co.za`;
 
-        const description =
-            `Barber: ${booking.barber}\\n` +
-            `Customer: ${booking.name}\\n` +
-            `Phone: ${booking.phone}\\n` +
-            `Email: ${booking.email}`;
 
         const location =
             "24 Long Street, City Centre, South Africa";
+
 
         const ics =
 `BEGIN:VCALENDAR
@@ -421,25 +525,34 @@ DTSTAMP:${now}
 DTSTART:${start}
 DTEND:${end}
 SUMMARY:House of Fades — ${booking.service}
-DESCRIPTION:${description}
+DESCRIPTION:Barber: ${booking.barber}\\nCustomer: ${booking.name}\\nPhone: ${booking.phone}
 LOCATION:${location}
 END:VEVENT
 END:VCALENDAR`;
 
+
         const blob =
-            new Blob([ics], {
-                type: "text/calendar;charset=utf-8"
-            });
+            new Blob(
+                [ics],
+                {
+                    type: "text/calendar;charset=utf-8"
+                }
+            );
+
 
         const url =
             URL.createObjectURL(blob);
 
+
         const link =
             document.createElement("a");
 
+
         link.href = url;
+
         link.download =
             "house-of-fades-appointment.ics";
+
 
         document.body.appendChild(link);
 
@@ -451,97 +564,132 @@ END:VCALENDAR`;
     }
 
 
-    /* -----------------------------------------
-       FORM SUBMISSION
-    ----------------------------------------- */
+    /* =========================================
+       SUBMIT BOOKING
+    ========================================= */
 
-    bookingForm.addEventListener("submit", event => {
+    bookingForm.addEventListener(
+        "submit",
+        event => {
 
-        event.preventDefault();
-
-        const selectedOption =
-            serviceSelect.options[
-                serviceSelect.selectedIndex
-            ];
-
-        const booking = {
-
-            service: serviceSelect.value,
-
-            barber: barberSelect.value,
-
-            date: dateInput.value,
-
-            time: timeSelect.value,
-
-            name:
-                document.getElementById("customerName").value.trim(),
-
-            phone:
-                document.getElementById("customerPhone").value.trim(),
-
-            email:
-                document.getElementById("customerEmail").value.trim(),
-
-            notes:
-                document.getElementById("notes").value.trim(),
-
-            duration:
-                parseInt(selectedOption.dataset.duration, 10),
-
-            price:
-                selectedOption.dataset.price
-
-        };
+            event.preventDefault();
 
 
-        /* Store latest booking locally */
-
-        localStorage.setItem(
-            "houseOfFadesBooking",
-            JSON.stringify(booking)
-        );
+            const selectedOption =
+                serviceSelect.options[
+                    serviceSelect.selectedIndex
+                ];
 
 
-        /* Confirmation details */
+            const booking = {
 
-        document.getElementById("confirmService").textContent =
-            booking.service;
+                service:
+                    serviceSelect.value,
 
-        document.getElementById("confirmBarber").textContent =
-            booking.barber;
+                barber:
+                    barberSelect.value,
 
-        document.getElementById("confirmDateTime").textContent =
-            `${formatDate(booking.date)} at ${formatTime(booking.time)}`;
+                date:
+                    dateInput.value,
 
-        document.getElementById("confirmPrice").textContent =
-            `R${booking.price}`;
+                time:
+                    timeSelect.value,
+
+                name:
+                    document
+                        .getElementById("customerName")
+                        .value
+                        .trim(),
+
+                phone:
+                    document
+                        .getElementById("customerPhone")
+                        .value
+                        .trim(),
+
+                email:
+                    document
+                        .getElementById("customerEmail")
+                        .value
+                        .trim(),
+
+                notes:
+                    document
+                        .getElementById("notes")
+                        .value
+                        .trim(),
+
+                duration:
+                    parseInt(
+                        selectedOption.dataset.duration,
+                        10
+                    ),
+
+                price:
+                    selectedOption.dataset.price
+            };
 
 
-        /* Google Calendar */
+            /* Save booking locally */
 
-        googleCalendar.href =
-            createGoogleCalendarLink(booking);
-
-
-        /* Apple / ICS */
-
-        appleCalendar.onclick = () => {
-            createICSFile(booking);
-        };
+            localStorage.setItem(
+                "houseOfFadesBooking",
+                JSON.stringify(booking)
+            );
 
 
-        /* Open modal */
+            /* Confirmation details */
 
-        modal.classList.add("show");
-        modal.setAttribute("aria-hidden", "false");
+            document.getElementById(
+                "confirmService"
+            ).textContent =
+                booking.service;
 
-    });
+
+            document.getElementById(
+                "confirmBarber"
+            ).textContent =
+                booking.barber;
 
 
-    /* -----------------------------------------
+            document.getElementById(
+                "confirmDateTime"
+            ).textContent =
+                `${formatDate(booking.date)} at ${formatTime(booking.time)}`;
+
+
+            document.getElementById(
+                "confirmPrice"
+            ).textContent =
+                `R${booking.price}`;
+
+
+            /* Calendar buttons */
+
+            googleCalendar.href =
+                createGoogleCalendarLink(booking);
+
+
+            appleCalendar.onclick =
+                () => createICSFile(booking);
+
+
+            /* Show confirmation */
+
+            modal.classList.add("show");
+
+            modal.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+        }
+    );
+
+
+    /* =========================================
        CLOSE MODAL
-    ----------------------------------------- */
+    ========================================= */
 
     function hideModal() {
 
@@ -553,10 +701,12 @@ END:VCALENDAR`;
         );
     }
 
+
     closeModal.addEventListener(
         "click",
         hideModal
     );
+
 
     modalDone.addEventListener(
         "click",
@@ -564,7 +714,8 @@ END:VCALENDAR`;
     );
 
 
-    document.querySelector(".modal-overlay")
+    document
+        .querySelector(".modal-overlay")
         .addEventListener(
             "click",
             hideModal
@@ -586,7 +737,3 @@ END:VCALENDAR`;
     );
 
 }
-
-
-
-
