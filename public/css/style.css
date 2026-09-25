@@ -1640,8 +1640,105 @@ img {
 
 }
 
+/* =============================================================================== */
 
+/* TERMS AND CONDITIONS */
 
+.terms-hero {
+    background:
+        linear-gradient(rgba(13,13,13,.55), rgba(13,13,13,.95)),
+        url("../images/about-hero.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.terms-section {
+    padding: 120px 10%;
+    background: var(--cream);
+    color: var(--black);
+}
+
+.terms-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    margin-bottom: 70px;
+}
+
+.terms-intro h2 {
+    font-family: var(--heading-font);
+    text-transform: uppercase;
+    font-size: clamp(50px, 5vw, 75px);
+    line-height: .95;
+}
+
+.terms-intro h2 span {
+    color: var(--gold);
+}
+
+.terms-intro p {
+    max-width: 500px;
+    color: #555;
+    line-height: 1.8;
+}
+
+.terms-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    background: #c9c4b9;
+}
+
+.terms-card {
+    background: var(--cream);
+    padding: 40px;
+    min-height: 260px;
+}
+
+.terms-card > span {
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.terms-card h3 {
+    font-family: var(--heading-font);
+    text-transform: uppercase;
+    font-size: 34px;
+    margin: 45px 0 15px;
+}
+
+.terms-card p {
+    color: #555;
+    line-height: 1.7;
+    font-size: 14px;
+    max-width: 500px;
+}
+
+@media (max-width: 700px) {
+
+    .terms-section {
+        padding: 80px 6%;
+    }
+
+    .terms-intro {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .terms-content {
+        grid-template-columns: 1fr;
+    }
+
+    .terms-card {
+        min-height: auto;
+    }
+
+    .terms-card h3 {
+        margin-top: 30px;
+    }
+}
 
 
 
